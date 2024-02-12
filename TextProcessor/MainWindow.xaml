@@ -1,0 +1,38 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextProcessorUi"
+        xmlns:VisualBasic="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core" xmlns:Collections="clr-namespace:System.Collections;assembly=System.Runtime" x:Class="TextProcessor.MainWindow"
+        mc:Ignorable="d"
+        Title="Текстовый обработчик" Height="600" Width="800" ResizeMode="CanMinimize">
+
+    <Grid Margin="0,0,0,-6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85*"/>
+            <RowDefinition Height="66*"/>
+            <RowDefinition Height="144*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="603*"/>
+            <ColumnDefinition Width="197*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="UiButtonAddFile" Content="Добавить файл" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="20" Width="170" Click="UiButton_AddFile_Click" Grid.Column="1"/>
+        <Button x:Name="UiRemoveFile" Content="Удалить файл" HorizontalAlignment="Center" Height="19" Margin="0,44,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False" Click="UiButton_RemoveFile_Click" Grid.Column="1"/>
+        <TextBox x:Name="UiTextBoxWordLength" HorizontalAlignment="Center" Height="20" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="170" PreviewTextInput="UiTextBox_WordLength_PreviewTextInput" Margin="0,31,0,0" Grid.Column="1" Grid.Row="1"/>
+        <CheckBox x:Name="UiCheckBoxRemovePunctuation" Content="Убирать знаки пунктуации" HorizontalAlignment="Center" VerticalAlignment="Top" IsChecked="True" Width="170" Height="15" Margin="0,56,0,0" Grid.Column="1" Grid.Row="1"/>
+        <ListBox x:Name="UiListBoxFiles" Margin="10,34,10,0" IsSynchronizedWithCurrentItem="True" Height="130" VerticalAlignment="Top" ItemsSource="{Binding Observer}" SelectionChanged="UiListBox_Files_SelectionChanged"/>
+        <Button x:Name="UiButtonProcessFiles" Content="Обработать" Height="37" Margin="10,1,10,0" VerticalAlignment="Top" Click="UiButton_ProcessFiles_Click" IsEnabled="False" Grid.ColumnSpan="2" Grid.Row="2"/>
+
+        <TextBlock HorizontalAlignment="Left" Height="19" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Margin="10,11,0,0"><Run Language="ru-ru" Text="Выходной каталог"/><Run Text=":"/></TextBlock>
+        <TextBox x:Name="UiTextBoxOutDirectory" Height="20" Margin="10,35,35,0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="UiTextBox_OutDirectory_TextChanged" Grid.Row="1"/>
+        <Button x:Name="UiButtonSelectOutDir" Content="..." Margin="0,35,10,0" RenderTransformOrigin="0.759,0.391"  Click="UiButton_SelectOutDirectory_Click" Height="20" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Right" Width="20" />
+        <ProgressBar x:Name="UiProcessingProgressBar" Margin="10,0,10,10" Grid.ColumnSpan="2" Grid.Row="2" Height="17" VerticalAlignment="Bottom"/>
+        <TextBlock HorizontalAlignment="Center" Height="16" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="1" Grid.Row="1"><Run Language="ru-ru" Text="Минимальная длина слова"/><Run Text=":"/><LineBreak/><Run Text=":"/></TextBlock>
+        <TextBox x:Name="UiTextBoxLogHistory" Grid.ColumnSpan="2" Margin="10,43,10,32" TextWrapping="Wrap" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Grid.Row="2" FontFamily="Segoe UI Symbol"/>
+        <TextBlock Height="14" Margin="10,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="296"><Run Language="ru-ru" Text="Список обрабатываемых файлов"/><Run Text=":"/></TextBlock>
+        <CheckBox x:Name="UiCheckBoxRemoveWhitespaces" Content="Убирать пробелы" HorizontalAlignment="Center" VerticalAlignment="Top" IsChecked="True" Width="170" Height="15" Margin="0,76,0,0" Grid.Column="1" Grid.Row="1"/>
+
+    </Grid>
+</Window>
