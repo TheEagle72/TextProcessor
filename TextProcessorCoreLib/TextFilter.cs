@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace TextProcessorCoreLib
 {
@@ -27,8 +23,8 @@ namespace TextProcessorCoreLib
 
         public string LastToken => _longWordBuilder.ToString();
 
-        private bool longWordProcessing = false;
-        private bool longWordIsGood = false;
+        private bool _longWordProcessing = false;
+        private bool _longWordIsGood = false;
 
         private readonly StringBuilder _stringBuilder = new();
         private readonly StringBuilder _longWordBuilder = new();
@@ -69,11 +65,11 @@ namespace TextProcessorCoreLib
 
         private void ProcessFirstToken(ReadOnlySpan<char> token)
         {
-            if (longWordProcessing)
+            if (_longWordProcessing)
             {
                 if (isWord.IsMatch(token))
                 {
-                    if (longWordIsGood)
+                    if (_longWordIsGood)
                     {
                         _stringBuilder.Append(token);
                     }
@@ -95,16 +91,16 @@ namespace TextProcessorCoreLib
                     _stringBuilder.Append(token);
                 }
             }
-            longWordProcessing = false;
-            longWordIsGood = false;
+            _longWordProcessing = false;
+            _longWordIsGood = false;
         }
 
         private void ProcessLastToken(ReadOnlySpan<char> token)
         {
             if (isWord.IsMatch(token))
             {
-                longWordProcessing = true;
-                if (longWordIsGood)
+                _longWordProcessing = true;
+                if (_longWordIsGood)
                 {
                     _stringBuilder.Append(_longWordBuilder.ToString());
                     _stringBuilder.Append(token);
@@ -114,7 +110,7 @@ namespace TextProcessorCoreLib
                     _longWordBuilder.Append(token);
                     if (_longWordBuilder.Length >= minLength)
                     {
-                        longWordIsGood = true;
+                        _longWordIsGood = true;
                         _stringBuilder.Append(_longWordBuilder.ToString());
                         _longWordBuilder.Clear();
                     }
