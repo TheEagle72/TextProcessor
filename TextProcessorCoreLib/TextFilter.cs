@@ -30,8 +30,8 @@ namespace TextProcessorCoreLib
         private bool longWordProcessing = false;
         private bool longWordIsGood = false;
 
-        private StringBuilder _stringBuilder = new();
-        private StringBuilder _longWordBuilder = new();
+        private readonly StringBuilder _stringBuilder = new();
+        private readonly StringBuilder _longWordBuilder = new();
         public string Filter(string str)
         {
             _stringBuilder.Clear();
@@ -136,12 +136,32 @@ namespace TextProcessorCoreLib
 
         public bool IsGoodToken(ReadOnlySpan<char> token)
         {
-            if (isWord.IsMatch(token))
+            //this method depends on tokens being 'clean', only words or punctuation or whitespace, not at the same time...
+            //not very secure. oh well... ¯\_(ツ)_/¯ need to think, how to handle its better
+
+            var isCurrentTokenWord = isWord.IsMatch(token);
+            var isCurrentTokenWhitespace = isWhitespace.IsMatch(token);
+            var isCurrentTokenPunctuation = isPunctuation.IsMatch(token);
+
+            //use xor? 
+            //if (!(isCurrentTokenWord ^ isCurrentTokenWhitespace ^ isCurrentTokenPunctuation))
+            //{
+            //    return false;
+            //}
+
+            if (isCurrentTokenWord)
             {
                 return token.Length >= minLength;
             }
-            if (removePunctuation && isPunctuation.IsMatch(token)) { return false; }
-            if (removeWhitespaces && isWhitespace.IsMatch(token)) { return false; }
+
+            if (removePunctuation && isCurrentTokenPunctuation) { return false; }
+
+            if (removeWhitespaces && isCurrentTokenWhitespace) { return false; }
+
+            //if token is not 'clean' - we filter it, so 'false'
+            //this behavior is debatable, depends on what we really want from filtered text
+            // ¯\_(ツ)_/¯
+            
             return true;
         }
     }
