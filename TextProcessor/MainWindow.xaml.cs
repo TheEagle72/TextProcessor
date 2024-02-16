@@ -136,7 +136,8 @@ namespace TextProcessor
             var successfullyProcessedFiles = task.Result;
 
             Logger.Instance().TimedMessage($"Обработано успешно {successfullyProcessedFiles.Count} файл(ов)");
-            
+            successfullyProcessedFiles.Clear();
+
             UiButtonAddFile.IsEnabled = true;
             UiProcessingProgressBar.Value = 0.0;
             SyncObserver(TaskManager.FilesToProcess);
