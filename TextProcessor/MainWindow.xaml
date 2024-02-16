@@ -28,7 +28,7 @@
         <TextBlock HorizontalAlignment="Left" Height="19" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Margin="10,11,0,0"><Run Language="ru-ru" Text="Выходной каталог"/><Run Text=":"/></TextBlock>
         <TextBox x:Name="UiTextBoxOutDirectory" Height="20" Margin="10,35,35,0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="UiTextBox_OutDirectory_TextChanged" Grid.Row="1"/>
         <Button x:Name="UiButtonSelectOutDir" Content="..." Margin="0,35,10,0" RenderTransformOrigin="0.759,0.391"  Click="UiButton_SelectOutDirectory_Click" Height="20" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Right" Width="20" />
-        <ProgressBar x:Name="UiProcessingProgressBar" Margin="10,0,10,10" Grid.ColumnSpan="2" Grid.Row="2" Height="17" VerticalAlignment="Bottom"/>
+        <ProgressBar x:Name="UiProcessingProgressBar" Margin="10,0,10,10" Grid.ColumnSpan="2" Grid.Row="2" Height="17" VerticalAlignment="Bottom" Visibility="Collapsed"/>
         <TextBlock HorizontalAlignment="Center" Height="16" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Grid.Column="1" Grid.Row="1"><Run Language="ru-ru" Text="Минимальная длина слова"/><Run Text=":"/><LineBreak/><Run Text=":"/></TextBlock>
         <TextBox x:Name="UiTextBoxLogHistory" Grid.ColumnSpan="2" Margin="10,43,10,32" TextWrapping="Wrap" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Grid.Row="2" FontFamily="Segoe UI Symbol"/>
         <TextBlock Height="14" Margin="10,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="296"><Run Language="ru-ru" Text="Список обрабатываемых файлов"/><Run Text=":"/></TextBlock>

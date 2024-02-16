@@ -14,7 +14,7 @@ namespace TextProcessorTest
         [TestCase("ab,.,cd", false)]
         public void isGoodTokenTruePunctuation(string token, bool isGood)
         {
-            ChunkTextFilter filter = new ChunkTextFilter((uint)(token.Length+1), removePunctuation: false, removeWhitespaces: true);
+            ChunkTextFilter filter = new((uint)(token.Length+1), removePunctuation: false, removeWhitespaces: true);
             Assert.AreEqual(isGood, filter.IsGoodToken(token));
         }
         
@@ -31,7 +31,7 @@ namespace TextProcessorTest
         [TestCase("ab,  \n.  ,cd", false)]
         public void isGoodTokenWhitespace(string token, bool isGood)
         {
-            ChunkTextFilter filter = new ChunkTextFilter((uint)(token.Length+1), removePunctuation: true, removeWhitespaces: false);
+            ChunkTextFilter filter = new((uint)(token.Length+1), removePunctuation: true, removeWhitespaces: false);
             Assert.AreEqual(isGood, filter.IsGoodToken(token));
         }
 
@@ -48,7 +48,7 @@ namespace TextProcessorTest
         [TestCase("ab,  \n.  ,cd", false)]
         public void isGoodTokenWordIsTooShort(string token, bool isGood)
         {
-            ChunkTextFilter filter = new ChunkTextFilter((uint)(token.Length+1), removePunctuation: true, removeWhitespaces: true);
+            ChunkTextFilter filter = new((uint)(token.Length+1), removePunctuation: true, removeWhitespaces: true);
             Assert.AreEqual(isGood, filter.IsGoodToken(token));
         }
         
@@ -64,7 +64,7 @@ namespace TextProcessorTest
         [TestCase("ab,.,cd", true)]
         public void isGoodTokenWordIsLongEnough(string token, bool isGood)
         {
-            ChunkTextFilter filter = new ChunkTextFilter((uint)token.Length, removePunctuation: true, removeWhitespaces: true);
+            ChunkTextFilter filter = new((uint)token.Length, removePunctuation: true, removeWhitespaces: true);
             Assert.AreEqual(isGood, filter.IsGoodToken(token));
         }
 
@@ -76,7 +76,7 @@ namespace TextProcessorTest
         [TestCase("Multirow\ntest\ncase")]
         public void filterNothing(string str)
         {
-            ChunkTextFilter filter = new ChunkTextFilter(0, removePunctuation: false, removeWhitespaces: false);
+            ChunkTextFilter filter = new(0, removePunctuation: false, removeWhitespaces: false);
             Assert.AreEqual(str, filter.Filter(str) + filter.LastToken);
         }
 
@@ -87,8 +87,7 @@ namespace TextProcessorTest
         [TestCase("Multirow\ntest\ncase")]
         public void filterByWordlengthRemoveAll(string str)
         {
-            ChunkTextFilter filter =
-                new ChunkTextFilter((uint)str.Length, removePunctuation: false, removeWhitespaces: false);
+            ChunkTextFilter filter = new((uint)str.Length, removePunctuation: false, removeWhitespaces: false);
             var filtered = string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word)));
             Assert.AreEqual(filtered, filter.Filter(str) +
                                       ((filter.IsGoodToken(filter.LastToken) ? filter.LastToken : "")));
@@ -102,7 +101,7 @@ namespace TextProcessorTest
         public void filterByWordlengthRemoveSome(string str)
         {
             var length = 4u;
-            ChunkTextFilter filter = new ChunkTextFilter(length, removePunctuation: false, removeWhitespaces: false);
+            ChunkTextFilter filter = new(length, removePunctuation: false, removeWhitespaces: false);
             var filtered = string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word)));
             Assert.AreEqual(filtered, filter.Filter(str) +
                                       ((filter.IsGoodToken(filter.LastToken) ? filter.LastToken : "")));
@@ -115,7 +114,7 @@ namespace TextProcessorTest
         [TestCase("Multirow\ntest\ncase")]
         public void filterPunctuationAndWhitespaces(string str)
         {
-            ChunkTextFilter filter = new ChunkTextFilter(0, removePunctuation: true, removeWhitespaces: true);
+            ChunkTextFilter filter = new(0, removePunctuation: true, removeWhitespaces: true);
             var filtered = Regex.Replace(str, @"\s|\p{P}", "");
             Assert.AreEqual(filtered, filter.Filter(str) +
                                       ((filter.IsGoodToken(filter.LastToken) ? filter.LastToken : "")));
@@ -129,7 +128,7 @@ namespace TextProcessorTest
         public void filterByWordlengthAndSpaces(string str)
         {
             var length = 4u;
-            ChunkTextFilter filter = new ChunkTextFilter(length, removePunctuation: false, removeWhitespaces: true);
+            ChunkTextFilter filter = new(length, removePunctuation: false, removeWhitespaces: true);
             var filtered =
                 Regex.Replace(string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word))),
                     @"\p{P}", "");
@@ -146,16 +145,13 @@ namespace TextProcessorTest
         public void filterByWordlengthAndPunctuation(string str)
         {
             var length = 4u;
-            ChunkTextFilter filter = new ChunkTextFilter(length, removePunctuation: false, removeWhitespaces: true);
+            ChunkTextFilter filter = new(length, removePunctuation: false, removeWhitespaces: true);
             var filtered =
                 Regex.Replace(string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word))),
                     @"\p{P}", "");
             Assert.AreEqual(filtered, filter.Filter(str) +
                                       ((filter.IsGoodToken(filter.LastToken) ? filter.LastToken : "")));
         }
-
-
-
     }
 
     class TestChunkTextProcessor
@@ -167,8 +163,8 @@ namespace TextProcessorTest
         [TestCase("Multirow\ntest\ncase")]
         public void textProcessorFilterDefaultChunkSizeNothing(string str)
         {
-            using StringReader SR = new StringReader(str);
-            using StringWriter SW = new StringWriter();
+            using StringReader SR = new(str);
+            using StringWriter SW = new();
 
             var minLength = 4u;
             var removePunctuation = false;
@@ -193,8 +189,8 @@ namespace TextProcessorTest
         [TestCase("Multirow\ntest\ncase")]
         public void textProcessorFilterVerySmallChunk(string str)
         {
-            using StringReader SR = new StringReader(str);
-            using StringWriter SW = new StringWriter();
+            using StringReader SR = new(str);
+            using StringWriter SW = new();
 
             var minLength = 4u;
             var removePunctuatuion = false;
