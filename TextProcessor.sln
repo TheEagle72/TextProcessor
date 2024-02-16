@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextProcessor", "TextProces
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextProcessorCoreLib", "TextProcessorCoreLib\TextProcessorCoreLib.csproj", "{B80CD057-FE1E-42BB-BDBB-62EE4091092C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessorTest", "TextProcessorTest\TextProcessorTest.csproj", "{0BF356C3-3B23-4B60-B627-05D06C625FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextProcessorTest", "TextProcessorTest\TextProcessorTest.csproj", "{0BF356C3-3B23-4B60-B627-05D06C625FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{9DCEA1C7-B837-41E2-A0AE-C1FCB950F425}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{0BF356C3-3B23-4B60-B627-05D06C625FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BF356C3-3B23-4B60-B627-05D06C625FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BF356C3-3B23-4B60-B627-05D06C625FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DCEA1C7-B837-41E2-A0AE-C1FCB950F425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DCEA1C7-B837-41E2-A0AE-C1FCB950F425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DCEA1C7-B837-41E2-A0AE-C1FCB950F425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DCEA1C7-B837-41E2-A0AE-C1FCB950F425}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

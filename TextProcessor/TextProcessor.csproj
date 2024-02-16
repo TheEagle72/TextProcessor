@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Logger\Logger.csproj" />
     <ProjectReference Include="..\TextProcessorCoreLib\TextProcessorCoreLib.csproj" />
   </ItemGroup>
 
