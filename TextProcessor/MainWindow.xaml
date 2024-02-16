@@ -19,8 +19,8 @@
             <ColumnDefinition Width="197*"/>
         </Grid.ColumnDefinitions>
         <Button x:Name="UiButtonAddFile" Content="Добавить файл" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="20" Width="170" Click="UiButton_AddFile_Click" Grid.Column="1"/>
-        <Button x:Name="UiRemoveFile" Content="Удалить файл" HorizontalAlignment="Center" Height="19" Margin="0,44,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False" Click="UiButton_RemoveFile_Click" Grid.Column="1"/>
-        <TextBox x:Name="UiTextBoxWordLength" HorizontalAlignment="Center" Height="20" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="170" PreviewTextInput="UiTextBox_WordLength_PreviewTextInput" Margin="0,31,0,0" Grid.Column="1" Grid.Row="1"/>
+        <Button x:Name="UiButtonRemoveFile" Content="Удалить файл" HorizontalAlignment="Center" Height="19" Margin="0,44,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False" Click="UiButton_RemoveFile_Click" Grid.Column="1"/>
+        <TextBox x:Name="UiTextBoxWordLength" HorizontalAlignment="Center" Height="20" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="170" PreviewTextInput="UiTextBox_WordLength_PreviewTextInput" Margin="0,31,0,0" Grid.Column="1" Grid.Row="1"/>
         <CheckBox x:Name="UiCheckBoxRemovePunctuation" Content="Убирать знаки пунктуации" HorizontalAlignment="Center" VerticalAlignment="Top" IsChecked="True" Width="170" Height="15" Margin="0,56,0,0" Grid.Column="1" Grid.Row="1"/>
         <ListBox x:Name="UiListBoxFiles" Margin="10,34,10,0" IsSynchronizedWithCurrentItem="True" Height="130" VerticalAlignment="Top" ItemsSource="{Binding Observer}" SelectionChanged="UiListBox_Files_SelectionChanged"/>
         <Button x:Name="UiButtonProcessFiles" Content="Обработать" Height="37" Margin="10,1,10,0" VerticalAlignment="Top" Click="UiButton_ProcessFiles_Click" IsEnabled="False" Grid.ColumnSpan="2" Grid.Row="2"/>

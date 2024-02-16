@@ -62,12 +62,13 @@ namespace TextProcessor
             {
                 Log($"Добавлен файл: \"{file}\"");
             }
+
             UiButtonProcessFiles.IsEnabled = _filesQueue.Count > 0;
         }
         
         private void UiButton_RemoveFile_Click(object sender, RoutedEventArgs e)
         {
-            Log($"Удалён файл: \"{_filesQueue.Remove(Observer[UiListBoxFiles.SelectedIndex])}\"");
+            Log($"Удалён файл: \"{_filesQueue.ElementAt(UiListBoxFiles.SelectedIndex)}\"");
 
             _filesQueue.Remove(_filesQueue.ElementAt(UiListBoxFiles.SelectedIndex));
             SyncObserver(_filesQueue);
@@ -102,11 +103,9 @@ namespace TextProcessor
         }
         private void UiListBox_Files_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (UiListBoxFiles.SelectedIndex == -1)
-            {
-                UiRemoveFile.IsEnabled = false;
-            }
+            UiButtonRemoveFile.IsEnabled = UiListBoxFiles.SelectedIndex != -1 && _filesQueue.Count > 0;
         }
+
         private bool IsOutDirectoryValid()
         {
             if (!Directory.Exists(_currentOutDir))
@@ -136,7 +135,7 @@ namespace TextProcessor
             _filesQueue.Clear(); //never used anymore, can be cleared so its open for insert of new files
 
             //disable Ui for the time of processing current file/pack of files
-            UiRemoveFile.IsEnabled = false;
+            UiButtonRemoveFile.IsEnabled = false;
             UiButtonAddFile.IsEnabled = false;
             UiButtonProcessFiles.IsEnabled = false;
 
@@ -161,7 +160,7 @@ namespace TextProcessor
                     //disposed at the end of scope
                     using var reader = new StreamReader(readPath);
                     using var writer = new StreamWriter(writePath);
-                    new ChunkTextProcessor(new TextFilter(minLength, removePunctuation, removeWhitespaces)).ProcessText(reader, writer);
+                    new ChunkTextProcessor(new ChunkTextFilter(minLength, removePunctuation, removeWhitespaces)).ProcessText(reader, writer);
                 }));
                 Log($"Обработка файла: \"{readPath}\" успешно завершена");
                 successfullyProcessedFiles.Add(readPath);

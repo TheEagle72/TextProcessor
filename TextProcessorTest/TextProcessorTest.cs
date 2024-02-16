@@ -12,7 +12,7 @@ namespace TextProcessorTest
         [TestCase("Multirow\ntest\ncase")]
         public void filterNothing(string str)
         {
-            TextFilter filter = new TextFilter(0, removePunctuation: false, removeWhitespaces: false);
+            ChunkTextFilter filter = new ChunkTextFilter(0, removePunctuation: false, removeWhitespaces: false);
             Assert.AreEqual(str, filter.Filter(str)+filter.LastToken);
         }
         
@@ -23,7 +23,7 @@ namespace TextProcessorTest
         [TestCase("Multirow\ntest\ncase")]
         public void filterByWordlengthRemoveAll(string str)
         {
-            TextFilter filter = new TextFilter((uint)str.Length, removePunctuation: false, removeWhitespaces: false);
+            ChunkTextFilter filter = new ChunkTextFilter((uint)str.Length, removePunctuation: false, removeWhitespaces: false);
             var filtered = string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word)));
             Assert.AreEqual(filtered, filter.Filter(str) +
                                 ((filter.IsGoodToken(filter.LastToken) ? filter.LastToken : "")));
@@ -37,7 +37,7 @@ namespace TextProcessorTest
         public void filterByWordlengthRemoveSome(string str)
         {
             var length = 4u;
-            TextFilter filter = new TextFilter(length, removePunctuation: false, removeWhitespaces: false);
+            ChunkTextFilter filter = new ChunkTextFilter(length, removePunctuation: false, removeWhitespaces: false);
             var filtered = string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word)));
             Assert.AreEqual(filtered, filter.Filter(str) +
                                 ((filter.IsGoodToken(filter.LastToken) ? filter.LastToken : "")));
@@ -50,7 +50,7 @@ namespace TextProcessorTest
         [TestCase("Multirow\ntest\ncase")]
         public void filterPunctuationAndWhitespaces(string str)
         {
-            TextFilter filter = new TextFilter(0, removePunctuation: true, removeWhitespaces: true);
+            ChunkTextFilter filter = new ChunkTextFilter(0, removePunctuation: true, removeWhitespaces: true);
             var filtered = Regex.Replace(str, @"\s|\p{P}", "");
             Assert.AreEqual(filtered, filter.Filter(str) +
                                 ((filter.IsGoodToken(filter.LastToken) ? filter.LastToken : "")));
@@ -64,7 +64,7 @@ namespace TextProcessorTest
         public void filterByWordlengthAndSpaces(string str)
         {
             var length = 4u;
-            TextFilter filter = new TextFilter(length, removePunctuation: false, removeWhitespaces: true);
+            ChunkTextFilter filter = new ChunkTextFilter(length, removePunctuation: false, removeWhitespaces: true);
             var filtered =
                 Regex.Replace(string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word))),
                     @"\p{P}", "");
@@ -81,7 +81,7 @@ namespace TextProcessorTest
         public void filterByWordlengthAndPunctuation(string str)
         {
             var length = 4u;
-            TextFilter filter = new TextFilter(length, removePunctuation: false, removeWhitespaces: true);
+            ChunkTextFilter filter = new ChunkTextFilter(length, removePunctuation: false, removeWhitespaces: true);
             var filtered =
                 Regex.Replace(string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word))),
                     @"\p{P}", "");
@@ -104,10 +104,10 @@ namespace TextProcessorTest
             var removePunctuatuion = false;
             var removeWhitespaces = false;
             
-            var textProcessor = new ChunkTextProcessor(new TextFilter(minLength, removePunctuatuion, removeWhitespaces));
+            var textProcessor = new ChunkTextProcessor(new ChunkTextFilter(minLength, removePunctuatuion, removeWhitespaces));
             textProcessor.ProcessText(SR, SW);
             var filteredResult = SW.ToString();
-            var filter = new TextFilter(minLength, false, false);
+            var filter = new ChunkTextFilter(minLength, false, false);
 
             var filtered =
                 Regex.Replace(string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word))),
@@ -131,11 +131,11 @@ namespace TextProcessorTest
             var chunkSize = 1u;
 
 
-            var textProcessor = new ChunkTextProcessor(new TextFilter(minLength, removePunctuatuion, removeWhitespaces),
+            var textProcessor = new ChunkTextProcessor(new ChunkTextFilter(minLength, removePunctuatuion, removeWhitespaces),
                 chunkSize);
             textProcessor.ProcessText(SR, SW);
             var filteredResult = SW.ToString();
-            var filter = new TextFilter(minLength, false, false);
+            var filter = new ChunkTextFilter(minLength, false, false);
 
             var filtered =
                 Regex.Replace(string.Join("", Regex.Split(str, @"\b").Where(word => filter.IsGoodToken(word))),
