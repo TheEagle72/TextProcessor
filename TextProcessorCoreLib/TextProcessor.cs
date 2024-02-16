@@ -11,7 +11,7 @@ namespace TextProcessorCoreLib
         public void ProcessText(TextReader reader, TextWriter writer);
     }
 
-    public class ChunkTextProcessor(IChunkTextFilter filter, uint chunkSize = 3) : ITextProcessor
+    public class ChunkTextProcessor(IChunkTextFilter filter, uint chunkSize = 4096) : ITextProcessor
     {
         //possibly (i don't really know) its better to limit chunk size to min of 4096 because of default filesystem chunk size
         private readonly uint _chunkSize = uint.Max(chunkSize, 1);
